@@ -1,0 +1,5 @@
+*.sh
+Makefile
+tests/
+requirements.txt
+*.md
