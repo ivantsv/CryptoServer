@@ -13,6 +13,7 @@ func main() {
 
 	serverMux := http.NewServeMux()
 	serverMux.HandleFunc("/auth/register", auth.RegisterHandler(authService))
+	serverMux.HandleFunc("/auth/login", auth.LoginHandler(authService))
 
 	log.Println("Starting server on http://localhost:8080")
 	err := http.ListenAndServe("localhost:8080", serverMux)
