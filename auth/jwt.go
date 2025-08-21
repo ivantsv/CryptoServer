@@ -21,7 +21,7 @@ func GenerateToken(username string) (string, error) {
 
 	tokenString, err := token.SignedString(os.Getenv("SECRET_KEY_CRYPTO_SERVER"))
 	if err != nil {
-		log.Fatalln("error during token creation")
+		log.Println("error during token creation")
 		return "", err
 	}
 
@@ -36,7 +36,7 @@ func ValidateToken(tokenString string) (*jwt.Token, error) {
 		return []byte(os.Getenv("SECRET_KEY_CRYPTO_SERVER")), nil
 	})
 	if err != nil {
-		log.Fatalln("error during token validation")
+		log.Println("error during token validation")
 		return nil, err
 	}
 

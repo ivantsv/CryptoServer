@@ -56,11 +56,6 @@ func (authService *AuthService) Delete(login string) error {
 
 func RegisterHandler(authService *AuthService) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			http.Error(w, `Method not allowed`, http.StatusMethodNotAllowed)
-			return
-		}
-
 		var LoginPasswordJSON LoginPasswordJSON
 
 		err := json.NewDecoder(r.Body).Decode(&LoginPasswordJSON)
@@ -101,11 +96,6 @@ func RegisterHandler(authService *AuthService) http.HandlerFunc {
 
 func LoginHandler(authService *AuthService) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodPost {
-			http.Error(w, `Method not allowed`, http.StatusMethodNotAllowed)
-			return
-		}
-
 		var loginJSON LoginPasswordJSON
 
 		err := json.NewDecoder(r.Body).Decode(&loginJSON)

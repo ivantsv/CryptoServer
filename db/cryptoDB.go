@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var ErrUnknownCoin = errors.New("Unknown coin name")
+var ErrUnknownCoin = errors.New("unknown coin name")
 
 type CoinData struct {
 	Name string `json:"name"`
@@ -15,27 +15,27 @@ type CoinData struct {
 }
 
 type CryptoDB struct {
-	storage map[string]CoinData
+	Storage map[string]CoinData
 	mutex sync.Mutex 
 }
 
 func NewCryptoDB() *CryptoDB {
 	return &CryptoDB{
-		storage: make(map[string]CoinData),
+		Storage: make(map[string]CoinData),
 	}
 }
 
 func (cdb *CryptoDB) Insert(name string, data CoinData) error {
 	cdb.mutex.Lock()
 	defer cdb.mutex.Unlock()
-	cdb.storage[name] = data
+	cdb.Storage[name] = data
 	return nil
 }
 
 func (cdb *CryptoDB) Get(name string) (CoinData, error) {
 	cdb.mutex.Lock()
 	defer cdb.mutex.Unlock()
-	coinData, ok := cdb.storage[name]
+	coinData, ok := cdb.Storage[name]
 	if !ok {
 		return CoinData{}, ErrUnknownCoin
 	}
@@ -46,11 +46,11 @@ func (cdb *CryptoDB) Get(name string) (CoinData, error) {
 func (cdb *CryptoDB) Delete(name string) error {
 	cdb.mutex.Lock()
 	defer cdb.mutex.Unlock()
-	_, ok := cdb.storage[name]
+	_, ok := cdb.Storage[name]
 	if !ok {
 		return ErrUnknownCoin
 	}
 
-	delete(cdb.storage, name)
+	delete(cdb.Storage, name)
 	return nil
 }
